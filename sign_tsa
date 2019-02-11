@@ -1,0 +1,28 @@
+#!/bin/bash
+
+inFile="$2" 
+server_url="http://tsa.sinpe.fi.cr/tsaHttp/"
+freetsa_server_url="https://freetsa.org/tsr"
+ca_files_path=$(whereis sign_tsa)
+ca_file=$ca_files_path/sinpeCA.pem
+#ca_file=$ca_files_path/freetsaCA.pem
+case "$1" in
+	-h| --help ) 
+        echo "help!"; 
+        ;;
+	-s|--sign ) 
+		gpg --armor --detach-sig "$inFile";
+		sha1sum "$inFile" > "${inFile}.sha1";
+		openssl ts -query -data "$inFile" -sha1 -cert |
+		curl -s -sSH 'Content-Type: application/timestamp-query' --data-binary @- "$server_url"  -o "${inFile}.tsr" ;
+        ;;
+	-v|--verify )
+		gpg --verify  "${inFile}.asc" "$inFile";echo ;
+		sha1sum "$inFile";
+		cat "${inFile}.sha1" ; echo; echo;
+		openssl ts -verify -data "$inFile" -in "${inFile}.tsr" -CAfile "$ca_file";
+		openssl ts -reply -in $inFile.tsr -text ;
+        ;;
+   	* ) echo "Unknown Option";
+esac
+
