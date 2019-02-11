@@ -1,0 +1,4 @@
+## Usage
+```bash
+export PATH=$PATH:$(pwd)
+```
