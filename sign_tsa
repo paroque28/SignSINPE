@@ -1,27 +1,34 @@
 #!/bin/bash
 
-set -x
 set -e
 
+# sinpe ya no funciona
 #server_url="http://tsa.sinpe.fi.cr/tsaHttp/"
 server_url="https://freetsa.org/tsr"
 ca_files_path=$(whereis sign_tsa | awk -F" " '{print $2}' | sed "s/sign_tsa//g")
 #ca_file=$ca_files_path/sinpeCA.pem
 ca_file=$ca_files_path/freetsaCA.pem
-
 function sign(){
     sudo gpg --armor --detach-sig "$1";
     sha1sum "$1" > "${1}.sha1";
     openssl ts -query -data "$1" -sha1 -cert | curl -o "${1}.tsr" -sSH 'Content-Type: application/timestamp-query' --data-binary @- "$server_url";
+    openssl ts -verify -data "$1" -in "${1}.tsr" -CAfile "$ca_file";
                                
 }
 
 function verify(){
-    gpg --verify  "${1}.asc" "$1";echo ;
-    sha1sum "$1";
-    cat "${1}.sha1" ; echo; echo;
-    openssl ts -verify -data "$1" -in "${1}.tsr" -CAfile "$ca_file";
-    openssl ts -reply -in $1.tsr -text ;
+    echo "GPG verification:"
+    gpg --verify  "${1}.asc" "$1" 2>&1 | grep "Good signature";
+    echo ; echo "SHA1 verification:"
+    if [ "$(sha1sum $1)" = "$(cat $1.sha1)" ] ; then 
+        echo "SHA1 coincide"; 
+    else 
+        echo "SHA1 no coincide"; 
+        exit 1; 
+    fi 
+    echo ; echo "Timestamp verification:"
+    openssl ts -verify -data "$1" -in "${1}.tsr" -CAfile "$ca_file" 2>&1| grep "Verification: OK" ;
+    openssl ts -reply -in $1.tsr -text 2>&1 | grep "Time stamp";
 }
 
 case "$1" in
