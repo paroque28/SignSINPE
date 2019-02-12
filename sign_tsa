@@ -35,7 +35,7 @@ function verify(){
 case "$1" in
 	-h| --help ) 
         echo "help!"; 
-	echo "Created by Pablo Rodriguez cyanpablo@protonmail.com"
+	echo "Created by Pablo Rodriguez cyanpablo@protonmail.com";
         ;;
 	-s|--sign ) 
         sign $2
