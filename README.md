@@ -1,5 +1,5 @@
 # SignSIGN
-Herramienta creada originalmente en el curso de lenguajes y compiladores segundo semestre 2015
+Herramienta creada originalmente en el curso de lenguajes y compiladores segundo semestre 2015 sign.sh es la version original
 ## Installation
 ```bash
 git clone https://github.com/paroque28/SignSINPE.git
