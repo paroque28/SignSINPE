@@ -30,7 +30,7 @@ echo "export PATH=\$PATH:\$(pwd)" >> ~/.bashrc
 - Paquetes: curl, gpg
 - Tener una firma gpg creada y almacenada
 ## Usage
-### Sign and verify
+### Sign and verify Note (if it is a folder it creates a tar.gz first)
 ```bash
 sign_tsa document
 ```
