@@ -1,10 +1,29 @@
 # SignSIGN
 Herramienta creada originalmente en el curso de lenguajes y compiladores segundo semestre 2015 sign.sh es la version original
+
+## Example of verification
+```bash
+$ sign_tsa -v README.md
+---------------------------------------
+GPG verification:
+gpg: Good signature from ""cyanpablo@protonmail.com" <cyanpablo@protonmail.com>" [ultimate]
+
+SHA1 verification:
+SHA1 coincide
+
+Timestamp verification:
+Verification: OK
+Time stamp: Feb 12 20:40:57.736089 2019 GMT
+```
 ## Installation
 ```bash
 git clone https://github.com/paroque28/SignSINPE.git
 cd SignSINPE
 export PATH=$PATH:$(pwd)
+```
+Or to export PATH permanently
+```bash
+echo "export PATH=\$PATH:\$(pwd)" >> ~/.bashrc
 ```
 ## Requirements
 - Paquetes: curl, gpg
