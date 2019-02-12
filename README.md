@@ -19,6 +19,7 @@ Time stamp: Feb 12 20:40:57.736089 2019 GMT
 ```bash
 git clone https://github.com/paroque28/SignSINPE.git
 cd SignSINPE
+chmod +x ./sign_tsa
 export PATH=$PATH:$(pwd)
 ```
 Or to export PATH permanently

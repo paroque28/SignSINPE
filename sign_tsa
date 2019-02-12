@@ -6,8 +6,8 @@ set -e
 #server_url="http://tsa.sinpe.fi.cr/tsaHttp/"
 server_url="https://freetsa.org/tsr"
 ca_files_path=$(whereis sign_tsa | awk -F" " '{print $2}' | sed "s/sign_tsa//g")
-#ca_file=$ca_files_path/sinpeCA.pem
-ca_file=$ca_files_path/freetsaCA.pem
+#ca_file=$ca_files_path/certs/sinpeCA.pem
+ca_file=$ca_files_path/certs/freetsaCA.pem
 function sign(){
     sudo gpg --armor --detach-sig "$1";
     sha1sum "$1" > "${1}.sha1";
@@ -32,10 +32,21 @@ function verify(){
     openssl ts -reply -in $1.tsr -text 2>&1 | grep "Time stamp";
 }
 
+function unify(){
+	filename=$(basename $1)
+    dir=$(dirname $1)
+    if [ -d "$1" ]; then
+        tar -zcfW $filename.tar.gz $1;
+        echo "$dir/$filename.tar.gz";
+    else
+        echo "$dir/$filename";
+    fi
+}
+
 case "$1" in
 	-h| --help ) 
         echo "help!"; 
-	    echo "Created by Pablo Rodriguez cyanpablo@protonmail.com";
+	    echo "Created by Pablo Rodriguez cyanpablo@protonmail.com 2015-2019";
         echo "$ sign_tsa document"
         ;;
 	-s|--sign ) 
@@ -44,8 +55,12 @@ case "$1" in
 	-v|--verify )
         verify $2
         ;;
+    -t|--tar )
+        unify $2
+        ;;
    	* ) 
-        sign $1
-        verify $1
+        file=$(unify $1)
+        sign $file
+        verify $file
 esac
 
