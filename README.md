@@ -10,6 +10,15 @@ export PATH=$PATH:$(pwd)
 - Paquetes: curl, gpg
 - Tener una firma gpg creada y almacenada
 ## Usage
+### Sign and verify
 ```bash
-sign_tsa documento
+sign_tsa document
+```
+### Verify
+```bash
+sign_tsa -v document
+```
+### Only sign (why tho?)
+```bash
+sign_tsa -s document
 ```
