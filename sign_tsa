@@ -3,17 +3,16 @@
 set -x
 set -e
 
-server_url="http://tsa.sinpe.fi.cr/tsaHttp/"
-freetsa_server_url="https://freetsa.org/tsr"
+#server_url="http://tsa.sinpe.fi.cr/tsaHttp/"
+server_url="https://freetsa.org/tsr"
 ca_files_path=$(whereis sign_tsa | awk -F" " '{print $2}' | sed "s/sign_tsa//g")
-ca_file=$ca_files_path/sinpeCA.pem
-freetsa_ca_file=$ca_files_path/freetsaCA.pem
+#ca_file=$ca_files_path/sinpeCA.pem
+ca_file=$ca_files_path/freetsaCA.pem
 
 function sign(){
     sudo gpg --armor --detach-sig "$1";
     sha1sum "$1" > "${1}.sha1";
-    openssl ts -query -data "$1" -sha1 -cert |
-    curl -s -sSH 'Content-Type: application/timestamp-query' --data-binary @- "$server_url"  -o "${1}.tsr" ;
+    openssl ts -query -data "$1" -sha1 -cert | curl -o "${1}.tsr" -sSH 'Content-Type: application/timestamp-query' --data-binary @- "$server_url";
                                
 }
 
