@@ -17,6 +17,7 @@ function sign(){
 }
 
 function verify(){
+    echo ; echo "---------------------------------------";
     echo "GPG verification:"
     gpg --verify  "${1}.asc" "$1" 2>&1 | grep "Good signature";
     echo ; echo "SHA1 verification:"
