@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Install grip $ pip install grip
+# Install wkhtmltopdf $ sudo apt-get install wkhtmltopdf
+# https://gist.github.com/M1ke/7681965
+
+md=$1
+pdf="${md%.*}".pdf
+port=$(( ( RANDOM % 6000 )  + 5000 ))
+
+echo $port
+
+grip $md localhost:$port &
+sleep 10
+wkhtmltopdf http://localhost:$port $pdf
+kill $(ps -eo pid,command | grep "grip" | grep -v grep | awk '{print $1}')

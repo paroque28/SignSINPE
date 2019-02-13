@@ -42,3 +42,5 @@ sign_tsa -v document
 ```bash
 sign_tsa -s document
 ```
+## Bonus
+Additionally, there is a tool called md2pdf to convert from MarkDown to pdf
