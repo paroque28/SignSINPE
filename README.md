@@ -25,6 +25,7 @@ export PATH=$PATH:$(pwd)
 Or to export PATH permanently
 ```bash
 echo "export PATH=\$PATH:\$(pwd)" >> ~/.bashrc
+echo "export PATH=\$PATH:\$(pwd)" >> ~/.profile
 ```
 ## Requirements
 - Paquetes: curl, gpg
