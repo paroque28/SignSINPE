@@ -32,7 +32,7 @@ function sign(){
 function verify(){
     echo ; echo "---------------------------------------";
     echo "GPG verification:"
-    gpg --verify  "${1}.asc" "$1" 2>&1 | grep 'signature\|Firma';
+    gpg --verify  "${1}.asc" "$1" 2>&1 | grep ' signature\|Firma ';
     echo ; echo "SHA1 verification:"
     if [ "$(sha1sum $1)" = "$(cat $1.sha1)" ] ; then 
         echo "SHA1 coincide"; 
