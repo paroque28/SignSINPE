@@ -47,3 +47,25 @@ sign_tsa -s document
 ```
 ## Bonus
 Additionally, there is a tool called md2pdf to convert from MarkDown to pdf
+
+### Steps to make PDF from md and sign it
+```bash
+md2pdf 2014084649-resumen00.md
+sign_tsa 2014084649-resumen00.md 2014084649-resumen00.pdf
+```
+Output:
+```bash
+Signing file: ./2014084649-resumen00.tar.gz
+
+---------------------------------------
+GPG verification:
+gpg: Good signature from ""cyanpablo@protonmail.com" <cyanpablo@protonmail.com>" [ultimate]
+
+SHA1 verification:
+SHA1 coincide
+
+Timestamp verification:
+Verification: OK
+Time stamp: Feb 15 19:24:04.734488 2019 GMT
+
+```
