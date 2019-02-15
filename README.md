@@ -34,15 +34,15 @@ echo "export PATH=\$PATH:\$(pwd)" >> ~/.bash_profile
 ## Usage
 ### Sign and verify
 **Note: (if it is a folder or multiplefiles it creates a tar.gz first)**
-- 1
+- Option 1
 ```bash
 sign_tsa document
 ```
-- 2
+- Option 2
 ```bash
 sign_tsa folder
 ```
-- 3
+- Option 3
 ```bash
 sign_tsa document1 document2 ...
 ```
