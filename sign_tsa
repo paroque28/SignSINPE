@@ -2,10 +2,22 @@
 
 set -e
 
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  TARGET="$(readlink "$SOURCE")"
+  if [[ $TARGET == /* ]]; then
+    SOURCE="$TARGET"
+  else
+    DIR="$( dirname "$SOURCE" )"
+    SOURCE="$DIR/$TARGET" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+  fi
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
 # sinpe ya no funciona
 #server_url="http://tsa.sinpe.fi.cr/tsaHttp/"
 server_url="https://freetsa.org/tsr"
-ca_files_path=$(whereis sign_tsa | awk -F" " '{print $2}' | sed "s/sign_tsa//g")
+ca_files_path=$DIR
 #ca_file=$ca_files_path/certs/sinpeCA.pem
 ca_file=$ca_files_path/certs/freetsaCA.pem
 function sign(){
