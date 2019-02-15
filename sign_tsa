@@ -49,7 +49,9 @@ function unify(){
 	filename=$(basename $1)
     dir=$(dirname $1)
     if [ -d "$1" ]; then
-        tar -zcfW $filename.tar.gz $1;
+        tar -zcf $filename.tar.gz $1;
+        tar -zcfW $filename.tar.gz ;
+        echo "Tar ball created $filename.tar.gz and verified correctly!!"
         echo "$dir/$filename.tar.gz";
     else
         echo "$dir/$filename";
