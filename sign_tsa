@@ -46,15 +46,15 @@ function verify(){
 }
 
 function unify(){
-	filename=$(basename $1)
+	file=$(basename $1)
     dir=$(dirname $1)
-    filename="${filename%.*}"
+    filename="${file%.*}"
     if [ -d "$1" ] ||  [ "$#" -ne 1 ]; then
         tar -zcf $filename.tar.gz "$@";
         tar -zcfW $filename.tar.gz ;
         echo "$dir/$filename.tar.gz";
     else
-        echo "$dir/$filename";
+        echo "$dir/$file";
     fi
 }
 
