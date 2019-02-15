@@ -55,9 +55,9 @@ SHA1 coincide
 Timestamp verification:
 Verification: OK
 Time stamp: Feb 12 20:40:57.736089 2019 GMT
-## Bonus
-Additionally, there is a tool called md2pdf to convert from MarkDown to pdf
 ```
+# Bonus
+Additionally, there is a tool called md2pdf to convert from MarkDown to pdf
 
 ### Steps to make PDF from md and sign it
 ```bash
