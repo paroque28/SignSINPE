@@ -1,4 +1,4 @@
-# SignSIGN
+# SignTSA
 Herramienta creada originalmente en el curso de lenguajes y compiladores segundo semestre 2015 sign.sh es la version original
 
 ## Example of verification
@@ -33,9 +33,18 @@ echo "export PATH=\$PATH:\$(pwd)" >> ~/.bash_profile
 - Tener una firma gpg creada y almacenada
 ## Usage
 ### Sign and verify
-**Note: (if it is a folder it creates a tar.gz first)**
+**Note: (if it is a folder or multiplefiles it creates a tar.gz first)**
+- 1
 ```bash
 sign_tsa document
+```
+- 2
+```bash
+sign_tsa folder
+```
+- 3
+```bash
+sign_tsa document1 document2 ...
 ```
 ### Verify
 ```bash
