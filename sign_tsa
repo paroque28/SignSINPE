@@ -37,7 +37,7 @@ function verify(){
     echo "GPG verification:"
     gpg --verify  "${1}.asc" "$1" 2>&1 | grep ' signature\|Firma ';
     echo ; echo "SHA1 verification:"
-    if [ "$(sha1sum $1)" = "$(cat $1.sha1)" ] ; then 
+    if [ "$(sha1sum $1 | awk '{ print $1 }')" = "$(cat $1.sha1 | awk '{ print $1 }')" ] ; then 
         echo "SHA1 coincide"; 
     else 
         echo "SHA1 no coincide"; 
