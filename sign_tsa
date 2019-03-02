@@ -17,13 +17,16 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
 # sinpe ya no funciona
 #server_url="http://tsa.sinpe.fi.cr/tsaHttp/"
-server_url="https://freetsa.org/tsr"
+#server_url="https://freetsa.org/tsr"
+server_url="https://safestamper.com/tsa"
 ca_files_path=$DIR
 #ca_file=$ca_files_path/certs/sinpeCA.pem
-ca_file=$ca_files_path/certs/freetsaCA.pem
+#ca_file=$ca_files_path/certs/freetsaCA.pem
+ca_file=$ca_files_path/certs/safestamperCA.cer
 function sign(){
     sudo gpg --armor --detach-sig "$1";
     sha1sum "$1" > "${1}.sha1";
+    #openssl ts -query -data "${1}" -cert | tee "${1}.tsq" | curl -s -S -H 'Content-Type: application/timestamp-query' --data-binary @- https://freetsa.org/tsr -o "${1}.tsr" 
     openssl ts -query -data "$1" -sha1 -cert | curl -o "${1}.tsr" -sSH 'Content-Type: application/timestamp-query' --data-binary @- "$server_url";
     openssl ts -verify -data "$1" -in "${1}.tsr" -CAfile "$ca_file";
                                
